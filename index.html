@@ -1,57 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multiple Timers App</title>
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            width: 50%;
-            margin: auto;
-            padding: 20px;
-        }
-        .timer-input {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        input {
-            width: 50px;
-            text-align: center;
-            font-size: 18px;
-        }
-        button {
-            background: yellow;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .timers {
-            margin-top: 20px;
-        }
-        .timer {
-            background: #333;
-            padding: 10px;
-            margin: 10px auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 300px;
-        }
-        .timer-up {
-            background: yellow;
-            color: black;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -65,79 +18,10 @@
             <button onclick="startTimer()">Set</button>
         </div>
         <h2>Current Timers</h2>
+        <p id="no-timers-message">No timers have been added right now</p>
         <div class="timers" id="timers"></div>
     </div>
 
-    <script>
-        let timers = [];
-
-        function startTimer() {
-            const hours = parseInt(document.getElementById("hours").value) || 0;
-            const minutes = parseInt(document.getElementById("minutes").value) || 0;
-            const seconds = parseInt(document.getElementById("seconds").value) || 0;
-            const totalTime = hours * 3600 + minutes * 60 + seconds;
-
-            if (totalTime > 0) {
-                const timerId = Date.now();
-                timers.push({ id: timerId, timeLeft: totalTime, interval: null });
-                updateTimers();
-            }
-        }
-
-        function updateTimers() {
-            const timersContainer = document.getElementById("timers");
-            timersContainer.innerHTML = "";
-
-            timers.forEach((timer, index) => {
-                const timerElement = document.createElement("div");
-                timerElement.classList.add("timer");
-                timerElement.innerHTML = `
-                    <span id="timer-${timer.id}">${formatTime(timer.timeLeft)}</span>
-                    <button onclick="deleteTimer(${timer.id})">Delete</button>
-                `;
-                timersContainer.appendChild(timerElement);
-                startCountdown(timer.id);
-            });
-        }
-
-        function startCountdown(timerId) {
-            const timer = timers.find(t => t.id === timerId);
-            if (!timer) return;
-
-            timer.interval = setInterval(() => {
-                timer.timeLeft--;
-                document.getElementById(`timer-${timer.id}`).innerText = formatTime(timer.timeLeft);
-
-                if (timer.timeLeft <= 0) {
-                    clearInterval(timer.interval);
-                    timerEnd(timer.id);
-                }
-            }, 1000);
-        }
-
-        function formatTime(seconds) {
-            const hrs = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            return `${String(hrs).padStart(2, '0')} : ${String(mins).padStart(2, '0')} : ${String(secs).padStart(2, '0')}`;
-        }
-
-        function deleteTimer(timerId) {
-            timers = timers.filter(timer => timer.id !== timerId);
-            updateTimers();
-        }
-
-        function timerEnd(timerId) {
-            const timerElement = document.getElementById(`timer-${timerId}`).parentNode;
-            timerElement.classList.add("timer-up");
-            timerElement.innerHTML = `<span>Timer Is Up!</span> <button onclick="deleteTimer(${timerId})">Stop</button>`;
-            playAlarm();
-        }
-
-        function playAlarm() {
-            const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
-            audio.play();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
