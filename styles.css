@@ -1,0 +1,52 @@
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+}
+
+.timer-input {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+button {
+    background: yellow;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.timers {
+    margin-top: 20px;
+}
+
+.timer {
+    background: #333;
+    padding: 10px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+}
+
+.timer-up {
+    background: yellow;
+    color: black;
+    font-weight: bold;
+}
