@@ -29,6 +29,10 @@ function updateTimers() {
     });
 }
 
+const audio = new Audio("timer-end-sound.mp3"); // Add a sound file in your project
+audio.play();
+
+
 function startCountdown(timerId) {
     const timer = timers.find(t => t.id === timerId);
     if (!timer) return;
